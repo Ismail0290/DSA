@@ -7,6 +7,7 @@ class Solution {
             if(map.containsKey(nums[i])){
                 arr[c] = nums[i];
                 c++;
+                if(c == 2) return arr;
             }else{
                 map.put(nums[i], true);
             }
