@@ -11,11 +11,11 @@ class Solution {
                 if(top > bottom && right > left){
                     int l = top - bottom;
                     int b = right -left;
-                    long side = Math.min(l,b);
-                    max = Math.max(max, side*side);
+                    int side = Math.min(l,b);
+                    max = Math.max(max, side);
                 }
             }
         }
-        return max;
+        return max * max;
     }
 }
