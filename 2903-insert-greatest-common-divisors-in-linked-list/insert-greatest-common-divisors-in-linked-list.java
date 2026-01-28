@@ -22,20 +22,12 @@ class Solution {
         } 
         return ans;  
     }
-    static int gcd(int n1, int n2){
-        int min = Math.min(n1, n2);
-        int max = Math.max(n1, n2);
-        int g = 0;
-        for(int i = 1; i<=Math.sqrt(min); i++){
-            if(min % i == 0){
-                if(max % i == 0){
-                    g = Math.max(i, g);
-                }
-                if(min/i != i && max % (min/i) == 0){
-                    g = Math.max(min/i, g);
-                }
-            }
+    static int gcd(int a, int b){
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
         }
-        return g;
+        return a;
     }
 }
