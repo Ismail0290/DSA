@@ -1,9 +1,15 @@
 class Solution {
     public int minimizedStringLength(String s) {
-        HashSet<Character> set = new HashSet<>();
-        for(int i = 0; i<s.length(); i++){
-            set.add(s.charAt(i));
+        int[] freq = new int[26];
+        int count = 0;
+        for(char ch: s.toCharArray()){
+            freq[ch-'a']++;
         }
-        return set.size();
+        for(int f: freq){
+            if(f>0){
+                count++;
+            }
+        }
+        return count;
     }
 }
