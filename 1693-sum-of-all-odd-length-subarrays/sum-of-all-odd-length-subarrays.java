@@ -7,12 +7,9 @@ class Solution {
 
          */
         int sum = 0;
-        for(int i = 1; i<=arr.length; i+=2){
-            for(int j = 0; j<arr.length-i+1; j++){
-                for(int k = j; k<j+i; k++){
-                    sum += arr[k];
-                }
-            }
+        int n = arr.length;
+        for(int i = 0; i<n; i++){
+            sum += (((i+1)*(n-i)+1)/2) * arr[i]; 
         }
         return sum;
     }
