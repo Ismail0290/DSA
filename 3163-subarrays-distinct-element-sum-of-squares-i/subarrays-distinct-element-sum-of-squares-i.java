@@ -3,11 +3,11 @@ class Solution {
         int n = nums.size();
         int sum = 0;
         for(int i = 0; i<n; i++){
-            for(int j = i; j<n; j++){
-                HashSet<Integer> set = new HashSet<>();
-                for(int k = i; k<=j; k++){
-                    set.add(nums.get(k));
-                }
+            sum++;
+            HashSet<Integer> set = new HashSet<>();
+            set.add(nums.get(i));
+            for(int j = i+1; j<n; j++){
+                set.add(nums.get(j));
                 sum += (set.size() * set.size());
             }
         }
