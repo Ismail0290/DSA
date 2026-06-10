@@ -2,30 +2,33 @@ class Solution {
     public int[] findPeakGrid(int[][] mat) {
         int m = mat.length;
         int n = mat[0].length;
-        int[][] arr = new int[m+2][n+2];
-        for(int i = 0; i<m+2; i++){
-            arr[i][0] = -1;
-            arr[i][n+1] = -1;
-        }
-        for(int i = 1; i<n+1; i++){
-            arr[0][i] = -1;
-            arr[m+1][i] = -1;
-        }
-        for(int i = 1; i<m+1; i++){
-            for(int j = 1; j<n+1; j++){
-                arr[i][j] = mat[i-1][j-1];
-            }
-        }
-        for(int i = 1; i<m+1; i++){
-            for(int j = 1; j<n+1; j++){
-                if(arr[i][j] > arr[i-1][j] &&
-                   arr[i][j] > arr[i+1][j] &&
-                   arr[i][j] > arr[i][j-1] &&
-                   arr[i][j] > arr[i][j+1]){
-                    return new int[] {i-1, j-1};
-                   }
+        int low = 0;
+        int high = n-1;
+        while(low <= high){
+            int mid = high + (low - high)/2;
+            int row = maxElement(mat, mid, m);
+            int left = mid-1 >= 0 ? mat[row][mid-1] : -1;
+            int right = mid+1 < n ? mat[row][mid+1] : -1;
+            if(mat[row][mid] > left && mat[row][mid] > right){
+                return new int[] {row, mid};
+            }else if(mat[row][mid] < left){
+                high = mid-1;
+            }else if(mat[row][mid] < right){
+                low = mid+1;
             }
         }
         return new int[] {m-1, n-1};
+    }
+
+    static int maxElement(int[][] arr, int col, int row){
+        int max = 0;
+        int maxi = 0;
+        for(int i = 0; i<row; i++){
+            if(arr[i][col] > max){
+                max = arr[i][col];
+                maxi = i;
+            }
+        }
+        return maxi;
     }
 }
