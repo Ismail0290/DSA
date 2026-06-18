@@ -1,19 +1,22 @@
 class Solution {
     public int numSubarraysWithSum(int[] nums, int goal) {
-        int n = nums.length;
-        int prefixSum = 0;
+        return subarrayLessThanEqualToK(nums, goal) - subarrayLessThanEqualToK(nums, goal-1);
+    }
+    static int subarrayLessThanEqualToK(int[] arr, int k){
+        if(k < 0) return 0;
+        int l = 0;
+        int r = 0;
         int count = 0;
-        HashMap<Integer, Integer> map = new HashMap<>();
-        map.put(0, 1);
-        for(int i = 0; i<n; i++){
-            prefixSum += nums[i];
-            int remove = prefixSum - goal;
-            if(map.containsKey(remove)){
-                count += map.get(remove);
+        int sum = 0;
+        while(r < arr.length){
+            sum += arr[r];
+            while(sum > k){
+                sum -= arr[l];
+                l++;
             }
-            map.put(prefixSum, map.getOrDefault(prefixSum, 0) + 1);
+            count += (r-l+1);
+            r++;
         }
         return count;
-
     }
 }
