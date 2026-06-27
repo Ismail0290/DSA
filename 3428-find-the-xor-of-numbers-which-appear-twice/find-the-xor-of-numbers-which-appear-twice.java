@@ -4,12 +4,15 @@ class Solution {
         int ans = 0;
         for(int i = 0; i<nums.length; i++){
             map.put(nums[i], map.getOrDefault(nums[i], 0)+1);
-        }
-        for(Map.Entry<Integer, Integer> entry: map.entrySet()){
-            if(entry.getValue() == 2){
-                ans ^= entry.getKey();
+            if(map.get(nums[i]) == 2){
+                ans ^= nums[i];
             }
         }
+        // for(Map.Entry<Integer, Integer> entry: map.entrySet()){
+        //     if(entry.getValue() == 2){
+        //         ans ^= entry.getKey();
+        //     }
+        // }
         return ans;
     }
 }
