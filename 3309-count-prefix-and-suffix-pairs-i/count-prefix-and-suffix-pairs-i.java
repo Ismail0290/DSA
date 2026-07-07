@@ -11,7 +11,6 @@ class Solution {
         return count;
     }
     static boolean isPrefixAndSuffix(String s1, String s2){
-        if(s2.startsWith(s1) && s2.endsWith(s1)) return true;
-        return false;
+        return s2.startsWith(s1) && s2.endsWith(s1);
     }
 }
