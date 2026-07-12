@@ -1,36 +1,34 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int first = 0;
-        int second = 0;
-        int[] arr = new int[nums1.length + nums2.length];
-        int k = 0;
-        while(first < nums1.length && second < nums2.length){
-            if(nums1[first] < nums2[second]){
-                arr[k] = nums1[first];
-                first++;
+        if(nums1.length > nums2.length){
+            return findMedianSortedArrays(nums2, nums1);
+        }
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        int high = n1;
+        int low = 0;
+        while(low <= high){
+            int cut1 = low + (high - low)/2;
+            int cut2 = (n1 + n2 + 1)/2 - cut1;
+
+            int left1 = (cut1 == 0) ? Integer.MIN_VALUE : nums1[cut1-1]; 
+            int left2 = (cut2 == 0) ? Integer.MIN_VALUE : nums2[cut2-1];
+
+            int right1 = (cut1 == n1) ? Integer.MAX_VALUE : nums1[cut1];
+            int right2 = (cut2 == n2) ? Integer.MAX_VALUE : nums2[cut2];
+
+            if(left1 <= right2 && left2 <= right1){
+                if((n1 + n2) % 2 == 0){
+                    return (Math.max(left1, left2) + Math.min(right1, right2))/2.0;
+                }else{
+                    return Math.max(left1, left2);
+                }
+            }else if(left1 > right2){
+                high = cut1 - 1;
             }else{
-                arr[k] = nums2[second];
-                second++;
+                low = cut1 + 1;
             }
-            k++;
         }
-        while(first < nums1.length){
-            arr[k] = nums1[first];
-            k++;
-            first++;
-        }
-        while(second < nums2.length){
-            arr[k] = nums2[second];
-            k++;
-            second++;
-        }
-        int n = arr.length/2;
-        double ans = 0.0;
-        if(arr.length % 2 == 0){
-            ans = (double) (arr[n-1] + arr[n])/2;
-        }else{
-            ans = arr[n];
-        }
-        return ans;
+        return 0.0;
     }
 }
